@@ -254,7 +254,7 @@ class Main(QMainWindow):
 	
     def on_actionConfWizard_triggered(self, checked=None):
 	if checked is None: return
-	import config_wizard
+	import configWizard
 	self.dialog = config_wizard.Form(self)
 	self.dialog.exec_()
 	self.ui.actionConfWizard.setEnabled(False)
