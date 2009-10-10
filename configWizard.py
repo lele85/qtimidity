@@ -9,8 +9,8 @@ from configWizardUi import Ui_Dialog
 #Regular expressions
 import re
  
-#FLUIDR_LINK = "http://sunsite.univie.ac.at/musicres/thammer/HammerSound/localfiles/soundfonts/FluidR3122501.zip"
-FLUIDR_LINK = "http://localhost/fluidr3.zip"
+FLUIDR_LINK = "http://sunsite.univie.ac.at/musicres/thammer/HammerSound/localfiles/soundfonts/FluidR3122501.zip"
+#FLUIDR_LINK = "http://localhost/fluidr3.zip"
 CONFIG_FILE_NAME = "timidity.cfg"
 COMPRESSED_SOUNDFONT_FILE_NAME = "FluidR3 GM.sfArk"
 CONFIG_FILE_PATH = os.path.join(os.path.abspath("./config/"), CONFIG_FILE_NAME)

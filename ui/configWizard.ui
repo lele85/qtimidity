@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
-    <height>393</height>
+    <width>273</width>
+    <height>197</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -173,9 +173,6 @@
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QTextBrowser" name="detailsBrowser"/>
      </item>
      <item>
       <spacer name="verticalSpacer1">

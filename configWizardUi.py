@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '../ui/configWizard.ui'
 #
-# Created: Sat Oct 10 11:10:35 2009
+# Created: Sat Oct 10 11:44:19 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(270, 393)
+        Dialog.resize(273, 197)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -72,9 +72,6 @@ class Ui_Dialog(object):
         self.okConfigLabel.setObjectName("okConfigLabel")
         self.horizontalLayout5.addWidget(self.okConfigLabel)
         self.verticalLayout.addLayout(self.horizontalLayout5)
-        self.detailsBrowser = QtGui.QTextBrowser(Dialog)
-        self.detailsBrowser.setObjectName("detailsBrowser")
-        self.verticalLayout.addWidget(self.detailsBrowser)
         spacerItem5 = QtGui.QSpacerItem(20, 10, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Preferred)
         self.verticalLayout.addItem(spacerItem5)
         self.progressBar = QtGui.QProgressBar(Dialog)
