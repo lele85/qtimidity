@@ -10,8 +10,8 @@ from configWizardUi import Ui_Dialog
 import re
 
 BINDIR = os.path.dirname(os.path.realpath( __file__ ))
-#FLUIDR_LINK = "http://sunsite.univie.ac.at/musicres/thammer/HammerSound/localfiles/soundfonts/FluidR3122501.zip"
-FLUIDR_LINK = "http://localhost/fluidr3.zip"
+FLUIDR_LINK = "http://sunsite.univie.ac.at/musicres/thammer/HammerSound/localfiles/soundfonts/FluidR3122501.zip"
+#FLUIDR_LINK = "http://localhost/fluidr3.zip"
 CONFIG_FILE_NAME = "timidity.cfg"
 COMPRESSED_SOUNDFONT_FILE_NAME = "FluidR3 GM.sfArk"
 CONFIG_FILE_PATH = os.path.join(BINDIR, "config/", CONFIG_FILE_NAME)
