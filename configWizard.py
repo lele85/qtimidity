@@ -83,10 +83,10 @@ class Form(QDialog):
 	self.ui.okUnzipLabel.setEnabled(False)
 	self.ui.okDecompressLabel.setEnabled(False)
 	self.ui.okConfigLabel.setEnabled(False)
-	self.ui.downloadLabel.setText("<b>Downloading File</b>")
-	self.ui.unzipLabel.setText("Unzipping Archive")
-	self.ui.decompressLabel.setText("Decompressing Soundfont")
-	self.ui.configLabel.setText("Ultimating Configuration")
+	self.ui.downloadLabel.setText(self.tr("<b>Downloading File</b>"))
+	self.ui.unzipLabel.setText(self.tr("Unzipping Archive"))
+	self.ui.decompressLabel.setText(self.tr("Decompressing Soundfont"))
+	self.ui.configLabel.setText(self.tr("Ultimating Configuration"))
 	# Setup ok button
 	self.ui.okButton.setDefaultAction(self.ui.actionOk)
 	self.ui.okButton.setEnabled(False)
@@ -113,8 +113,8 @@ class Form(QDialog):
 	
     def replyFinished(self, reply):
 	self.ui.okDownloadLabel.setEnabled(True)
-	self.ui.downloadLabel.setText("Downloading File")
-	self.ui.unzipLabel.setText("<b>Unzipping Archive</b>")
+	self.ui.downloadLabel.setText(self.tr("Downloading File"))
+	self.ui.unzipLabel.setText(self.tr("<b>Unzipping Archive</b>"))
 	self.progress(0,0)
 	self.unzipThread = unzipThread()
 	self.connect(self.unzipThread, SIGNAL("finished()"), self.unzipThreadDone)
@@ -122,9 +122,9 @@ class Form(QDialog):
 
     def unzipThreadDone(self):
 	#self.progress(100,100)
-	self.ui.unzipLabel.setText("Unzipping Archive")
+	self.ui.unzipLabel.setText(self.tr("Unzipping Archive"))
 	self.ui.okUnzipLabel.setEnabled(True)
-	self.ui.decompressLabel.setText("<b>Decompressing Soundfont</b>")
+	self.ui.decompressLabel.setText(self.tr("<b>Decompressing Soundfont</b>"))
 	self.decompressThread = sfarkxtcThread()
 	self.decompressThread.start()
 	self.connect(self.decompressThread, SIGNAL("finished()"), self.decompressThreadDone)
@@ -132,7 +132,7 @@ class Form(QDialog):
 
     def decompressThreadDone(self):
 	self.progress(100,100)
-	self.ui.decompressLabel.setText("Decompressing Soundfont")
+	self.ui.decompressLabel.setText(self.tr("Decompressing Soundfonts"))
 	self.ui.okDecompressLabel.setEnabled(True)
 	self.configThread = configThread()
 	self.configThread.start()
@@ -140,7 +140,7 @@ class Form(QDialog):
 
     def configThreadDone(self):
 	self.progress(100,100)
-	self.ui.configLabel.setText("Ultimating Configuration")
+	self.ui.configLabel.setText(self.tr("Ultimating Configuration"))
 	self.ui.okConfigLabel.setEnabled(True)
 	self.ui.okButton.setEnabled(True)
     

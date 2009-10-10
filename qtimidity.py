@@ -28,7 +28,7 @@ class timidityThread(QThread):
 	    try:
 		song = self.playlist[i]
 		fileName = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].fileName()
-		self.nowPlayingLabel.setText("Playing: <b>" + fileName + "</b>")
+		self.nowPlayingLabel.setText(self.tr("Playing: <b>") + fileName + "</b>")
 		self.play = Popen(['timidity', '-c', os.path.join(os.path.expanduser("~"),'.qtimidity/timidity.cfg'), song.filePath()])
 		self.play.wait()
 		self.playlistModel.setFilePlaying(self.playlistModel.filePlaying + 1)
@@ -143,7 +143,7 @@ class Main(QMainWindow):
 	self.play = None
 	#Statusbar nowplaying label
 	self.nowPlayingLabel = QLabel()
-	self.nowPlayingLabel.setText("Playing: <b>Nothing</b>")
+	self.nowPlayingLabel.setText(self.tr("Playing: <b>Nothing</b>"))
 	self.ui.statusbar.addWidget(self.nowPlayingLabel)
 	# If a path is passed via commandline enquee the midi and play it
 	try:
@@ -233,7 +233,7 @@ class Main(QMainWindow):
 	self.thread.play.terminate()
 	self.thread.play.kill()
 	self.thread.play.wait()
-	self.nowPlayingLabel.setText("Playing: <b>Nothing</b>")
+	self.nowPlayingLabel.setText(self.tr("Playing: <b>Nothing</b>"))
 
     def closeEvent(self,event):
 	'''Stop current playing song before exit app'''
@@ -262,8 +262,12 @@ class Main(QMainWindow):
 def main():
     # Again, this is boilerplate, it's going to be the same on
     # almost every app you write
+    binDir = os.path.dirname(os.path.realpath( __file__ ))
     app = QApplication(sys.argv)
     app.setDesktopSettingsAware(False)
+    translator = QTranslator()
+    translator.load('qtimidity_' + QLocale.system().name(), binDir+'/translations')
+    app.installTranslator(translator)
     window=Main()
     window.show()
     # It's exec_ because exec is a reserved word in Python
