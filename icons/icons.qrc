@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="/" >
+    <file>22x22/tools-wizard.png</file>
+    <file>22x22/go-home.png</file>
+    <file>22x22/dialog-ok-apply.png</file>
+    <file>22x22/go-next.png</file>
+    <file>22x22/go-previous.png</file>
+    <file>22x22/go-up.png</file>
+    <file>32x32/qtimidity-icon-32.png</file>
+    <file>32x32/edit-delete.png</file>
+    <file>32x32/application-exit.png</file>
+    <file>48x48/media-playback-start.png</file>
+    <file>48x48/media-playback-stop.png</file>
+    <file>48x48/media-skip-backward.png</file>
+    <file>48x48/media-skip-forward.png</file>
+  </qresource>
+</RCC>
