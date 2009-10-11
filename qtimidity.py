@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os,sys
-from subprocess import *
 # Import Qt modules
 from PyQt4.QtCore import * 
 from PyQt4.QtGui import *
@@ -9,7 +8,9 @@ from PyQt4.QtGui import *
 from qtimidityUi import Ui_MainWindow
 
 CONFIG_DIR_DESTINATION_PATH = os.path.join(os.path.expanduser("~"),".qtimidity")
+CONFIG_FILE_DESTINATION_PATH = os.path.join(CONFIG_DIR_DESTINATION_PATH, "timidity.cfg")
 SOUNDFONT_FILE_DESTINATION_PATH = os.path.join(CONFIG_DIR_DESTINATION_PATH, "fluidr3.sf2")
+TIMIDITY_COMMAND = 'timidity'
 
 class timidityThread(QThread):
     def __init__(self, playlistModel, nowPlayingLabel, parent=None):
@@ -23,21 +24,20 @@ class timidityThread(QThread):
 	i = 0
 	#for song in self.playlist:
 	while True:
-	    #path = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].filePath()
-	    #fileName = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].fileName()
 	    try:
 		song = self.playlist[i]
 		fileName = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].fileName()
 		self.nowPlayingLabel.setText(self.tr("Playing: <b>") + fileName + "</b>")
-		self.play = Popen(['timidity', '-c', os.path.join(os.path.expanduser("~"),'.qtimidity/timidity.cfg'), song.filePath()])
-		self.play.wait()
+		#self.play = Popen([TIMIDITY_COMMAND, '-c', CONFIG_FILE_DESTINATION_PATH, song.filePath()])
+		#self.play.wait()
+		self.play = QProcess();
+		self.play.start(TIMIDITY_COMMAND, ["-c",CONFIG_FILE_DESTINATION_PATH, song.filePath()])
+		self.play.waitForFinished(-1)
 		self.playlistModel.setFilePlaying(self.playlistModel.filePlaying + 1)
 		self.playlist = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1 : self.playlistModel.rowCount()]
 	    except IndexError:
 		self.playlistModel.setFilePlaying(None)
 		return
-	    #self.nowPlayingLabel.setText("Playing: <b>" + song.fileName() + "</b>")
-	    #self.play.wait()
 
     def setPlaylist(self, playlist):
 	self.playlist = playlist
@@ -156,6 +156,8 @@ class Main(QMainWindow):
 	    self.ui.actionPlay.trigger()
 	except IndexError:
 	    pass
+	#Empty thread
+	self.thread = None
 	
     def on_navigationView_doubleClicked(self,newIndex):
 	''' On dir doubleclick set new directory in navigation view, on doubleclick on midi file enqueue it in playlist'''
@@ -172,7 +174,6 @@ class Main(QMainWindow):
     def on_playtableView_doubleClicked(self, playtableIndex):
 	'''Play double clicked items in playlist'''
 	self.playlistModel.setFilePlaying(playtableIndex.row() + 1)
-	self.ui.actionStop.trigger()
 	self.ui.actionPlay.trigger()
 	
     def on_actionNext_triggered(self, checked=None):
@@ -204,23 +205,10 @@ class Main(QMainWindow):
 	else:
 	    self.playlistModel.removeRows(self.ui.playtableView.currentIndex().row())
 
-#    def on_actionPlay_triggered(self, checked=None):
-#	'''Play current item in playlistWidget'''
-#	if checked is None: return
-#	if self.playlistModel.filePlaying == -1:
-#	    return
-#	else:
-#	    self.ui.actionStop.trigger()
-#	    for song in self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1:self.playlistModel.rowCount()]:
-	    #path = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].filePath()
-	    #fileName = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].fileName()
-#		self.play = call(['timidity', song.filePath()])
-#		self.nowPlayingLabel.setText("Playing: <b>" + song.fileName() + "</b>")
-		#self.play.wait()
-		
     def on_actionPlay_triggered(self, checked=None):
 	if checked is None: return
-	self.ui.actionStop.trigger()
+	if not self.thread == None:
+	    self.ui.actionStop.trigger()
 	self.thread = timidityThread(self.playlistModel, self.nowPlayingLabel)
 	self.thread.start()
 
@@ -232,7 +220,6 @@ class Main(QMainWindow):
 	self.thread.terminate()
 	self.thread.play.terminate()
 	self.thread.play.kill()
-	self.thread.play.wait()
 	self.nowPlayingLabel.setText(self.tr("Playing: <b>Nothing</b>"))
 
     def closeEvent(self,event):
@@ -240,7 +227,6 @@ class Main(QMainWindow):
 	self.thread.terminate()
 	self.thread.play.terminate()
 	self.thread.play.kill()
-	self.thread.play.wait()
     
     def on_actionNavigationUp_triggered(self, checked=None):
 	if checked is None: return
