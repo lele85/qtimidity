@@ -21,15 +21,11 @@ class timidityThread(QThread):
 	self.nowPlayingLabel = nowPlayingLabel
 
     def run(self):
-	i = 0
-	#for song in self.playlist:
 	while True:
 	    try:
-		song = self.playlist[i]
+		song = self.playlist[0]
 		fileName = self.playlistModel.fileInfoList[self.playlistModel.filePlaying - 1].fileName()
 		self.nowPlayingLabel.setText(self.tr("Playing: <b>") + fileName + "</b>")
-		#self.play = Popen([TIMIDITY_COMMAND, '-c', CONFIG_FILE_DESTINATION_PATH, song.filePath()])
-		#self.play.wait()
 		self.play = QProcess();
 		self.play.start(TIMIDITY_COMMAND, ["-c",CONFIG_FILE_DESTINATION_PATH, song.filePath()])
 		self.play.waitForFinished(-1)
@@ -251,6 +247,7 @@ def main():
     binDir = os.path.dirname(os.path.realpath( __file__ ))
     app = QApplication(sys.argv)
     app.setDesktopSettingsAware(False)
+    #Internationalization
     translator = QTranslator()
     translator.load('qtimidity_' + QLocale.system().name(), binDir+'/translations')
     app.installTranslator(translator)

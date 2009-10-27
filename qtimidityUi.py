@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '../ui/qtimidity.ui'
 #
-# Created: Sat Oct 10 11:44:18 2009
+# Created: Mon Oct 12 12:48:01 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(546, 535)
+        MainWindow.resize(534, 308)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/32x32/qtimidity-icon-32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -76,9 +76,14 @@ class Ui_MainWindow(object):
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
         self.navigationView = QtGui.QListView(self.splitter)
+        self.navigationView.setDragEnabled(True)
+        self.navigationView.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
         self.navigationView.setAlternatingRowColors(True)
         self.navigationView.setObjectName("navigationView")
         self.playtableView = QtGui.QTableView(self.splitter)
+        self.playtableView.setDragEnabled(True)
+        self.playtableView.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
+        self.playtableView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.playtableView.setShowGrid(False)
         self.playtableView.setSortingEnabled(False)
         self.playtableView.setObjectName("playtableView")
@@ -88,7 +93,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 546, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 534, 22))
         self.menubar.setObjectName("menubar")
         self.menuQtimidity = QtGui.QMenu(self.menubar)
         self.menuQtimidity.setObjectName("menuQtimidity")

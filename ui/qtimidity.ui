@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>546</width>
-    <height>535</height>
+    <width>534</width>
+    <height>308</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,11 +162,26 @@
          <enum>Qt::Horizontal</enum>
         </property>
         <widget class="QListView" name="navigationView">
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::DragDrop</enum>
+         </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
         </widget>
         <widget class="QTableView" name="playtableView">
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::DragDrop</enum>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
          <property name="showGrid">
           <bool>false</bool>
          </property>
@@ -191,7 +206,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>546</width>
+     <width>534</width>
      <height>22</height>
     </rect>
    </property>
